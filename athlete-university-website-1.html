@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Athlete University — Online Strength & Conditioning Coaching</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#080808;
+  --dark:#0f0f0f;
+  --card:#141414;
+  --border:#1e1e1e;
+  --gold:#c9a84c;
+  --gold-dim:#a07c2e;
+  --gold-light:#e8c97a;
+  --cream:#f0ede6;
+  --muted:#5a5a5a;
+  --muted2:#888;
+  --white:#f8f5ee;
+  --green:#27ae60;
+}
+
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 40px;
+  background:rgba(8,8,8,0.9);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(201,168,76,0.12);
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;letter-spacing:3px;color:var(--white);
+}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-links a{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted2);text-decoration:none;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{
+  background:var(--gold);color:var(--black);
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:10px 20px;border:none;cursor:pointer;
+  text-decoration:none;
+  transition:background 0.2s;
+}
+.nav-cta:hover{background:var(--gold-light);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 40px 70px;
+  position:relative;overflow:hidden;
+  background:var(--black);
+}
+.hero-bg-text{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-55%);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(140px,25vw,340px);
+  letter-spacing:-8px;
+  color:rgba(201,168,76,0.04);
+  pointer-events:none;
+  white-space:nowrap;
+  line-height:1;
+  user-select:none;
+}
+.hero-tag{
+  font-family:'DM Mono',monospace;
+  font-size:10px;letter-spacing:4px;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.hero-tag::before{
+  content:'';width:30px;height:1px;background:var(--gold);display:block;
+}
+.hero-headline{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(56px,10vw,130px);
+  line-height:0.92;
+  letter-spacing:2px;
+  color:var(--white);
+  margin-bottom:10px;
+}
+.hero-headline em{
+  font-style:italic;
+  font-family:'Playfair Display',serif;
+  color:var(--gold);
+  font-size:0.85em;
+}
+.hero-sub{
+  font-size:clamp(14px,1.6vw,17px);
+  color:var(--muted2);
+  max-width:480px;
+  line-height:1.7;
+  margin-bottom:40px;
+  font-weight:300;
+}
+.hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+.btn-primary{
+  background:var(--gold);color:var(--black);
+  font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:16px 32px;text-decoration:none;
+  display:inline-block;
+  transition:all 0.2s;
+  font-weight:500;
+}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-ghost{
+  border:1px solid var(--border);color:var(--muted2);
+  font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:16px 32px;text-decoration:none;
+  display:inline-block;
+  transition:all 0.2s;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+
+.hero-stats{
+  position:absolute;right:40px;bottom:70px;
+  display:flex;flex-direction:column;gap:24px;
+  text-align:right;
+}
+.hero-stat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:42px;color:var(--gold);
+  letter-spacing:1px;line-height:1;
+}
+.hero-stat-label{
+  font-family:'DM Mono',monospace;
+  font-size:9px;letter-spacing:2px;
+  color:var(--muted);text-transform:uppercase;
+}
+.hero-divider{width:1px;height:40px;background:var(--border);margin-left:auto;}
+
+/* ── SECTION COMMON ── */
+section{padding:100px 40px;}
+.section-label{
+  font-family:'DM Mono',monospace;
+  font-size:9px;letter-spacing:4px;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-label::before{content:'';width:20px;height:1px;background:var(--gold);display:block;}
+.section-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(40px,6vw,80px);
+  letter-spacing:2px;line-height:0.95;
+  color:var(--white);
+  margin-bottom:16px;
+}
+.section-title em{
+  font-style:italic;
+  font-family:'Playfair Display',serif;
+  color:var(--gold);
+}
+
+/* ── CREDENTIALS ── */
+.cred-section{
+  background:var(--dark);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.cred-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  max-width:1100px;margin:0 auto;
+}
+.cred-left{
+  padding:80px 60px 80px 0;
+  border-right:1px solid var(--border);
+}
+.cred-right{
+  padding:80px 0 80px 60px;
+}
+.cred-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(38px,5vw,64px);
+  line-height:0.95;letter-spacing:2px;
+  color:var(--white);margin-bottom:20px;
+}
+.cred-title span{color:var(--gold);}
+.cred-desc{
+  font-size:15px;color:var(--muted2);
+  line-height:1.8;margin-bottom:32px;
+  font-weight:300;
+}
+.cred-badges{display:flex;flex-direction:column;gap:12px;}
+.badge{
+  display:flex;align-items:center;gap:14px;
+  border:1px solid var(--border);
+  padding:14px 18px;
+  background:var(--card);
+}
+.badge-icon{font-size:20px;flex-shrink:0;}
+.badge-text strong{
+  display:block;font-size:12px;color:var(--white);
+  font-weight:600;margin-bottom:2px;
+}
+.badge-text span{
+  font-size:11px;color:var(--muted);
+  font-family:'DM Mono',monospace;
+}
+.cred-stat-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+  margin-bottom:32px;
+}
+.cred-stat{
+  background:var(--card);
+  padding:28px 24px;
+}
+.cred-stat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:48px;color:var(--gold);
+  letter-spacing:1px;line-height:1;
+  margin-bottom:4px;
+}
+.cred-stat-label{
+  font-family:'DM Mono',monospace;
+  font-size:9px;letter-spacing:2px;
+  color:var(--muted);text-transform:uppercase;
+}
+.cred-quote{
+  font-family:'Playfair Display',serif;
+  font-style:italic;font-size:17px;
+  color:var(--cream);line-height:1.6;
+  padding-left:20px;
+  border-left:2px solid var(--gold);
+}
+
+/* ── HOW IT WORKS ── */
+.how-section{max-width:1100px;margin:0 auto;}
+.steps-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  margin-top:60px;
+}
+.step{
+  background:var(--card);
+  padding:48px 36px;
+  position:relative;
+  transition:background 0.3s;
+}
+.step:hover{background:var(--dark);}
+.step-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:80px;letter-spacing:-2px;
+  color:rgba(201,168,76,0.08);
+  position:absolute;top:20px;right:20px;
+  line-height:1;
+}
+.step-icon{font-size:32px;margin-bottom:20px;}
+.step-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;letter-spacing:2px;
+  color:var(--white);margin-bottom:10px;
+}
+.step-desc{font-size:13px;color:var(--muted2);line-height:1.7;}
+
+/* ── PRICING ── */
+.pricing-section{
+  background:var(--black);
+  border-top:1px solid var(--border);
+}
+.pricing-inner{max-width:1100px;margin:0 auto;}
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-top:60px;
+}
+.price-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:36px 30px;
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+  transition:transform 0.3s,border-color 0.3s;
+}
+.price-card:hover{transform:translateY(-4px);border-color:var(--gold-dim);}
+.price-card.featured{
+  border-color:var(--gold);
+  background:#161410;
+}
+.price-card.featured::before{
+  content:'MOST POPULAR';
+  position:absolute;top:16px;right:-28px;
+  background:var(--gold);color:var(--black);
+  font-family:'DM Mono',monospace;font-size:8px;
+  letter-spacing:1.5px;padding:4px 36px;
+  transform:rotate(45deg);
+  font-weight:500;
+}
+.price-tier{
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:3px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:12px;
+}
+.price-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28px;letter-spacing:2px;
+  color:var(--white);margin-bottom:4px;
+}
+.price-tagline{
+  font-size:12px;color:var(--muted);
+  margin-bottom:28px;font-style:italic;
+  font-family:'Playfair Display',serif;
+}
+.price-amount{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:52px;color:var(--gold);
+  letter-spacing:1px;line-height:1;
+}
+.price-currency{font-size:24px;vertical-align:top;margin-top:8px;display:inline-block;}
+.price-period{
+  font-family:'DM Mono',monospace;font-size:10px;
+  color:var(--muted);margin-bottom:28px;margin-top:4px;
+}
+.price-divider{height:1px;background:var(--border);margin-bottom:24px;}
+.price-features{flex:1;margin-bottom:28px;}
+.price-feature{
+  font-size:13px;color:#aaa;
+  padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  display:flex;gap:10px;align-items:flex-start;
+}
+.price-feature:last-child{border-bottom:none;}
+.price-feature-check{color:var(--gold);flex-shrink:0;font-size:12px;margin-top:1px;}
+.price-btn{
+  display:block;text-align:center;
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:14px;text-decoration:none;
+  border:1px solid var(--border);
+  color:var(--muted2);
+  transition:all 0.2s;
+}
+.price-btn:hover{border-color:var(--gold);color:var(--gold);}
+.price-btn.featured-btn{
+  background:var(--gold);color:var(--black);
+  border-color:var(--gold);font-weight:500;
+}
+.price-btn.featured-btn:hover{background:var(--gold-light);}
+
+/* ── PROCESS STRIP ── */
+.process-strip{
+  background:var(--dark);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:50px 40px;
+}
+.process-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;align-items:center;gap:0;
+}
+.process-step{
+  flex:1;text-align:center;
+  padding:0 20px;
+  position:relative;
+}
+.process-step:not(:last-child)::after{
+  content:'→';
+  position:absolute;right:-10px;top:50%;
+  transform:translateY(-50%);
+  color:var(--gold);font-size:18px;
+}
+.process-icon{font-size:28px;margin-bottom:10px;}
+.process-label{
+  font-family:'DM Mono',monospace;
+  font-size:9px;letter-spacing:2px;
+  color:var(--muted2);text-transform:uppercase;
+  margin-bottom:4px;
+}
+.process-desc{font-size:12px;color:var(--muted);}
+
+/* ── TESTIMONIALS ── */
+.testi-section{
+  background:var(--black);
+  border-top:1px solid var(--border);
+}
+.testi-inner{max-width:1100px;margin:0 auto;}
+.testi-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;margin-top:60px;
+}
+.testi-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:28px 24px;
+}
+.testi-stars{color:var(--gold);font-size:13px;margin-bottom:14px;letter-spacing:2px;}
+.testi-text{
+  font-family:'Playfair Display',serif;
+  font-style:italic;font-size:14px;
+  color:#bbb;line-height:1.7;
+  margin-bottom:20px;
+}
+.testi-author{
+  display:flex;align-items:center;gap:12px;
+}
+.testi-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:16px;
+  color:var(--gold);flex-shrink:0;
+}
+.testi-name{font-size:13px;font-weight:600;color:var(--white);}
+.testi-role{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;}
+
+/* ── FAQ ── */
+.faq-section{
+  background:var(--dark);
+  border-top:1px solid var(--border);
+}
+.faq-inner{max-width:700px;margin:0 auto;}
+.faq-item{
+  border-bottom:1px solid var(--border);
+  padding:20px 0;
+}
+.faq-q{
+  font-size:15px;font-weight:500;color:var(--white);
+  cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:16px;
+}
+.faq-q span{color:var(--gold);font-size:18px;flex-shrink:0;}
+.faq-a{
+  font-size:13px;color:var(--muted2);
+  line-height:1.8;padding-top:12px;
+  display:none;
+}
+.faq-item.open .faq-a{display:block;}
+.faq-item.open .faq-q span{transform:rotate(45deg);}
+.faq-q span{transition:transform 0.2s;display:inline-block;}
+
+/* ── CTA ── */
+.cta-section{
+  background:var(--gold);
+  padding:100px 40px;
+  text-align:center;
+}
+.cta-label{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:4px;color:rgba(0,0,0,0.5);
+  text-transform:uppercase;margin-bottom:20px;
+}
+.cta-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(48px,8vw,96px);
+  letter-spacing:2px;line-height:0.92;
+  color:var(--black);margin-bottom:20px;
+}
+.cta-title em{
+  font-style:italic;
+  font-family:'Playfair Display',serif;
+}
+.cta-desc{
+  font-size:15px;color:rgba(0,0,0,0.6);
+  max-width:500px;margin:0 auto 40px;
+  line-height:1.7;
+}
+.cta-btn{
+  display:inline-block;
+  background:var(--black);color:var(--gold);
+  font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:18px 40px;text-decoration:none;
+  transition:all 0.2s;
+}
+.cta-btn:hover{background:#111;transform:translateY(-2px);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--black);
+  border-top:1px solid var(--border);
+  padding:40px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:18px;letter-spacing:3px;
+  color:var(--white);
+}
+.footer-logo span{color:var(--gold);}
+.footer-copy{
+  font-family:'DM Mono',monospace;
+  font-size:10px;letter-spacing:1px;
+  color:var(--muted);
+}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:1px;color:var(--muted);
+  text-decoration:none;transition:color 0.2s;
+}
+.footer-links a:hover{color:var(--gold);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp 0.8s ease both;}
+.delay-1{animation-delay:0.1s;}
+.delay-2{animation-delay:0.2s;}
+.delay-3{animation-delay:0.35s;}
+.delay-4{animation-delay:0.5s;}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  nav{padding:14px 20px;}
+  .nav-links{display:none;}
+  section{padding:70px 20px;}
+  .hero{padding:0 20px 60px;}
+  .hero-stats{display:none;}
+  .cred-grid{grid-template-columns:1fr;}
+  .cred-left{padding:0 0 40px;border-right:none;border-bottom:1px solid var(--border);}
+  .cred-right{padding:40px 0 0;}
+  .steps-grid{grid-template-columns:1fr;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:1fr;}
+  .process-inner{flex-direction:column;gap:24px;}
+  .process-step::after{display:none;}
+  footer{flex-direction:column;text-align:center;}
+  .footer-links{flex-wrap:wrap;justify-content:center;}
+  .cta-section{padding:70px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">ATHLETE <span>UNIVERSITY</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#apply" class="nav-cta">Apply Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">AU</div>
+  <div class="hero-tag fade-up">India's Premier Online S&C Coaching</div>
+  <h1 class="hero-headline fade-up delay-1">
+    BUILD A<br/>BODY THAT<br/><em>Performs.</em>
+  </h1>
+  <p class="hero-sub fade-up delay-2">
+    Science-backed strength & conditioning coaching by India's NSCA-CSCS certified coach. 
+    Custom programming. Real accountability. Transformative results.
+  </p>
+  <div class="hero-actions fade-up delay-3">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeKZlaM98i8lxKbxR0ELyE2Q9Hnxo2PbMjoLNluhVwy5QG46g/viewform" class="btn-primary" target="_blank">Apply for Coaching</a>
+    <a href="#pricing" class="btn-ghost">View Plans</a>
+  </div>
+
+  <div class="hero-stats fade-up delay-4">
+    <div>
+      <div class="hero-stat-num">NSCA</div>
+      <div class="hero-stat-label">Certified CSCS</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div>
+      <div class="hero-stat-num">PhD</div>
+      <div class="hero-stat-label">Experimental Medicine</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div>
+      <div class="hero-stat-num">100%</div>
+      <div class="hero-stat-label">Online Coaching</div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section class="cred-section" id="about">
+  <div class="cred-grid">
+    <div class="cred-left">
+      <div class="section-label">Your Coach</div>
+      <h2 class="cred-title">DR. SUKHPREET<br/><span>SINGH</span></h2>
+      <p class="cred-desc">
+        I hold the NSCA-CSCS — the global gold standard in Strength & Conditioning — 
+        and a PhD in Experimental Medicine from PGIMER Chandigarh. 
+        I built Athlete University on one principle: your training should be as 
+        precise as science and as personal as a one-on-one session.
+      </p>
+      <blockquote class="cred-quote">
+        "Most coaches guess. I calculate. Every rep, every set, every meal 
+        recommendation is built on evidence — and built for you."
+      </blockquote>
+    </div>
+    <div class="cred-right">
+      <div class="cred-stat-grid">
+        <div class="cred-stat">
+          <div class="cred-stat-num">CSCS</div>
+          <div class="cred-stat-label">NSCA Certified · AIR 85</div>
+        </div>
+        <div class="cred-stat">
+          <div class="cred-stat-num">PhD</div>
+          <div class="cred-stat-label">Experimental Medicine</div>
+        </div>
+        <div class="cred-stat">
+          <div class="cred-stat-num">NET</div>
+          <div class="cred-stat-label">CSIR JRF Qualified</div>
+        </div>
+        <div class="cred-stat">
+          <div class="cred-stat-num">100%</div>
+          <div class="cred-stat-label">Science-Backed Coaching</div>
+        </div>
+      </div>
+      <div class="cred-badges">
+        <div class="badge">
+          <span class="badge-icon">🏅</span>
+          <div class="badge-text">
+            <strong>NSCA-CSCS Certified</strong>
+            <span>National Strength & Conditioning Association, USA</span>
+          </div>
+        </div>
+        <div class="badge">
+          <span class="badge-icon">🎓</span>
+          <div class="badge-text">
+            <strong>PhD — Experimental Medicine & Biotechnology</strong>
+            <span>PGIMER Chandigarh (India's Top Medical Institute)</span>
+          </div>
+        </div>
+        <div class="badge">
+          <span class="badge-icon">⚡</span>
+          <div class="badge-text">
+            <strong>Founder — Athlete University</strong>
+            <span>Sports Performance Coaching Brand, India</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="how-section">
+    <div class="section-label">The Process</div>
+    <h2 class="section-title">HOW IT<br/><em>Works</em></h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">📋</div>
+        <div class="step-title">APPLY</div>
+        <p class="step-desc">Fill out a short coaching application. We review your goals, training history, and readiness. Serious applicants only — spots are always limited.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-icon">📞</div>
+        <div class="step-title">FREE CALL</div>
+        <p class="step-desc">A 15-minute call with Coach Sukhpreet to discuss your goals and see if we're the right fit. No pitch. No pressure. Just clarity on your path forward.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-icon">🎯</div>
+        <div class="step-title">YOUR PROGRAM</div>
+        <p class="step-desc">Within 48 hours of joining, you receive a fully custom training program, nutrition protocol, and access to your coach via WhatsApp.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-icon">✅</div>
+        <div class="step-title">WEEKLY CHECK-INS</div>
+        <p class="step-desc">Every week you submit progress, metrics, and feedback. Your program adjusts in real time. Nothing stays static — your body doesn't, so your program shouldn't.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-icon">📈</div>
+        <div class="step-title">TRACK PROGRESS</div>
+        <p class="step-desc">Regular form-check videos, strength benchmarks, and body composition tracking. You always know exactly where you are and what's next.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">06</div>
+        <div class="step-icon">🏆</div>
+        <div class="step-title">TRANSFORM</div>
+        <p class="step-desc">By week 8–12 you're not the same. Stronger. Leaner. Moving better. With habits that outlast the program itself. This is how permanent change happens.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS STRIP -->
+<div class="process-strip">
+  <div class="process-inner">
+    <div class="process-step">
+      <div class="process-icon">📱</div>
+      <div class="process-label">WhatsApp</div>
+      <div class="process-desc">Daily communication</div>
+    </div>
+    <div class="process-step">
+      <div class="process-icon">📹</div>
+      <div class="process-label">Video Feedback</div>
+      <div class="process-desc">Form checks weekly</div>
+    </div>
+    <div class="process-step">
+      <div class="process-icon">📊</div>
+      <div class="process-label">Progress Tracking</div>
+      <div class="process-desc">Data-driven adjustments</div>
+    </div>
+    <div class="process-step">
+      <div class="process-icon">🍽️</div>
+      <div class="process-label">Indian Nutrition</div>
+      <div class="process-desc">Protocols built for you</div>
+    </div>
+    <div class="process-step">
+      <div class="process-icon">🔄</div>
+      <div class="process-label">Weekly Updates</div>
+      <div class="process-desc">Program evolves with you</div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+    <div class="section-label">Investment</div>
+    <h2 class="section-title">CHOOSE YOUR<br/><em>Plan</em></h2>
+    <p style="font-size:14px;color:var(--muted2);max-width:500px;line-height:1.7;margin-bottom:8px;">
+      Three ways to work with Athlete University. Every tier is built around results, 
+      not just workouts.
+    </p>
+
+    <div class="pricing-grid">
+
+      <!-- STARTER -->
+      <div class="price-card">
+        <div class="price-tier">Tier 01 · Self-Guided</div>
+        <div class="price-name">DIGITAL PROGRAM</div>
+        <div class="price-tagline">The foundation you need to start strong.</div>
+        <div>
+          <span class="price-currency price-amount">₹</span><span class="price-amount">999</span>
+        </div>
+        <div class="price-period">ONE-TIME · INSTANT ACCESS</div>
+        <div class="price-divider"></div>
+        <div class="price-features">
+          <div class="price-feature"><span class="price-feature-check">→</span>12-week structured training program (PDF)</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Indian diet & nutrition guide</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Exercise video library links</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Progressive overload tracker template</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Access to free WhatsApp broadcast</div>
+          <div class="price-feature" style="color:var(--muted)"><span style="color:var(--muted)">✕</span> No coaching or check-ins</div>
+          <div class="price-feature" style="color:var(--muted)"><span style="color:var(--muted)">✕</span> No personalisation</div>
+        </div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeKZlaM98i8lxKbxR0ELyE2Q9Hnxo2PbMjoLNluhVwy5QG46g/viewform" class="price-btn" target="_blank">Get the Program</a>
+      </div>
+
+      <!-- GROUP — FEATURED -->
+      <div class="price-card featured">
+        <div class="price-tier">Tier 02 · Group Coaching</div>
+        <div class="price-name">GROUP COHORT</div>
+        <div class="price-tagline">Structured. Accountable. Community-powered.</div>
+        <div>
+          <span class="price-currency price-amount">₹</span><span class="price-amount">4,999</span>
+        </div>
+        <div class="price-period">PER 8-WEEK COHORT · NEXT BATCH OPENING SOON</div>
+        <div class="price-divider"></div>
+        <div class="price-features">
+          <div class="price-feature"><span class="price-feature-check">→</span>8-week progressive training program</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>2 live Zoom coaching sessions per week</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Private WhatsApp group — daily check-ins</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Weekly form-check video submission</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Indian nutrition protocol & targets</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Workout log & progress tracking sheets</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Community support & accountability</div>
+        </div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeKZlaM98i8lxKbxR0ELyE2Q9Hnxo2PbMjoLNluhVwy5QG46g/viewform" class="price-btn featured-btn" target="_blank">Join Next Batch</a>
+      </div>
+
+      <!-- ELITE -->
+      <div class="price-card">
+        <div class="price-tier">Tier 03 · Premium</div>
+        <div class="price-name">ELITE 1:1</div>
+        <div class="price-tagline">Total personalisation. Maximum results.</div>
+        <div>
+          <span class="price-currency price-amount">₹</span><span class="price-amount">10,000</span>
+        </div>
+        <div class="price-period">PER MONTH · MINIMUM 3 MONTHS</div>
+        <div class="price-divider"></div>
+        <div class="price-features">
+          <div class="price-feature"><span class="price-feature-check">→</span>Fully custom weekly training program</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>2 video calls per month (30 min each)</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>WhatsApp access — reply within 24 hrs</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Unlimited form-check video feedback</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Custom Indian nutrition protocol</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Weekly program adjustments</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Free access to all group cohorts</div>
+          <div class="price-feature"><span class="price-feature-check">→</span>Monthly body composition review</div>
+        </div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeKZlaM98i8lxKbxR0ELyE2Q9Hnxo2PbMjoLNluhVwy5QG46g/viewform" class="price-btn" target="_blank">Apply for Elite Coaching</a>
+      </div>
+
+    </div>
+
+    <p style="text-align:center;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:24px;letter-spacing:1px;">
+      All plans include a free 15-minute discovery call before any payment. · Payment via UPI / Razorpay.
+    </p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section" id="testimonials">
+  <div class="testi-inner">
+    <div class="section-label">Results</div>
+    <h2 class="section-title">WHAT CLIENTS<br/><em>Say</em></h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"I'd tried 3 trainers before Sukhpreet. None of them could explain WHY they were giving me a program. He explained everything — and it worked. Down 11 kg in 14 weeks."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div>
+            <div class="testi-name">Rahul M.</div>
+            <div class="testi-role">Software Engineer · Delhi</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The group cohort was worth every rupee. The live Zoom sessions kept me accountable and the WhatsApp group felt like a team. Gained 4 kg of muscle in 8 weeks."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div>
+            <div class="testi-name">Priya S.</div>
+            <div class="testi-role">Marketing Manager · Mumbai</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"As a competitive badminton player, I needed more than just gym coaching. Sukhpreet's S&C background changed how I move on court. My coach noticed immediately."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div>
+            <div class="testi-name">Arjun K.</div>
+            <div class="testi-role">State-Level Athlete · Chandigarh</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <div class="section-label">Questions</div>
+    <h2 class="section-title" style="margin-bottom:40px;">FAQ</h2>
+
+    <div class="faq-item open">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Do I need gym access or can I train at home?
+        <span>+</span>
+      </div>
+      <p class="faq-a">Both work. During the application process you tell us what equipment you have access to — full gym, home gym, or no equipment at all. Your program is built around exactly what you have. No excuses, no barriers.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        I'm a complete beginner. Is this right for me?
+        <span>+</span>
+      </div>
+      <p class="faq-a">Absolutely. Some of our best results come from beginners because they have the most room to grow and no bad habits to unlearn. We start where you are — not where you think you should be.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        How is this different from following YouTube workouts?
+        <span>+</span>
+      </div>
+      <p class="faq-a">YouTube gives you generic programs designed for an imaginary average person. We design your program for your body, your goals, your schedule, your equipment, and your food preferences — then we adjust it every single week based on how you're actually responding. That's coaching, not content.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        What does the weekly check-in involve?
+        <span>+</span>
+      </div>
+      <p class="faq-a">Every Sunday you fill out a short form: your weight, how training felt, compliance, sleep, and energy. You submit a workout log and optionally a form-check video. By Monday we review everything and update your program or nutrition accordingly. Takes you 5 minutes. Changes everything.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        What if I don't see results?
+        <span>+</span>
+      </div>
+      <p class="faq-a">In 90 days of consistent, coached effort, you will see results — because we track every variable and adjust in real time. Results require adherence. Our job is to make adherence as easy as possible. If something isn't working, we change it. That's the point of having a coach.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        How do I pay? Is it secure?
+        <span>+</span>
+      </div>
+      <p class="faq-a">We use Razorpay — India's most trusted payment gateway — accepting UPI, credit/debit card, net banking, and EMI. Payment links are sent directly to you after your discovery call. Zero hidden fees.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Can I switch plans later?
+        <span>+</span>
+      </div>
+      <p class="faq-a">Yes. Many clients start with the Group Cohort and upgrade to 1:1 Elite after experiencing the coaching quality. Just reach out and we'll sort it out seamlessly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="apply">
+  <div class="cta-label">Limited Spots Available</div>
+  <h2 class="cta-title">READY TO<br/><em>Transform?</em></h2>
+  <p class="cta-desc">
+    Apply in 3 minutes. Free discovery call within 24 hours. 
+    Your program ready in 48 hours. No fluff. No guesswork. Just results.
+  </p>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeKZlaM98i8lxKbxR0ELyE2Q9Hnxo2PbMjoLNluhVwy5QG46g/viewform" class="cta-btn" target="_blank">
+    Apply for Coaching →
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ATHLETE <span>UNIVERSITY</span></div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#pricing">Plans</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeKZlaM98i8lxKbxR0ELyE2Q9Hnxo2PbMjoLNluhVwy5QG46g/viewform" target="_blank">Apply</a>
+  </div>
+  <div class="footer-copy">© 2025 Athlete University · NSCA-CSCS · Chandigarh, India</div>
+</footer>
+
+<script>
+function toggleFaq(el){
+  const item = el.parentElement;
+  item.classList.toggle('open');
+}
+
+// Scroll animation
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.1});
+
+document.querySelectorAll('.step,.price-card,.testi-card,.badge,.cred-stat').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(20px)';
+  el.style.transition='opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+
+// Smooth nav highlight
+window.addEventListener('scroll',()=>{
+  const nav = document.querySelector('nav');
+  if(window.scrollY > 50){
+    nav.style.boxShadow='0 1px 30px rgba(0,0,0,0.5)';
+  } else {
+    nav.style.boxShadow='none';
+  }
+});
+</script>
+</body>
+</html>
